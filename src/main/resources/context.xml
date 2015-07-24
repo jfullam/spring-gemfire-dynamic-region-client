@@ -10,18 +10,18 @@
 	<!-- turn on declarative caching -->
 	<cache:annotation-driven />
 
-	<gfe:client-cache id="booksCache" pool-name="my-pool" />
+	<gfe:client-cache id="booksCache" pool-name="mypool" />
 
-	<gfe:pool id="my-pool" subscription-enabled="true">
+	<gfe:pool id="mypool" subscription-enabled="true">
 		<gfe:locator host="localhost" port="1234" />
 	</gfe:pool>
 
-	<gfe:client-region id="books" cache-ref="booksCache" />
+	<!-- <gfe:client-region id="books" cache-ref="booksCache" shortcut="PROXY" pool-name="mypool"/> -->
 
 	<!-- declare GemFire Cache Manager -->
 	<bean id="cacheManager"
-		class="org.springframework.data.gemfire.support.GemfireCacheManager"
-		p:cache-ref="booksCache" />
+		class="io.pivotal.fe.cachemanager.GemFireClientCacheManager"
+		p:cache-ref="booksCache" p:createRemoteRegions="true"/>
 
 
 </beans>
